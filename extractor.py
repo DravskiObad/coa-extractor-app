@@ -3,15 +3,20 @@ import json
 import time
 import os
 import google.generativeai as genai
-from dotenv import load_dotenv
 
-# Load environment variables
-load_dotenv()
+try:
+    # Try to import streamlit for cloud deployment
+    import streamlit as st
+    # Use Streamlit secrets in cloud environment
+    api_key = st.secrets["GOOGLE_API_KEY"]
+except ImportError:
+    # Fallback to dotenv for local development
+    from dotenv import load_dotenv
+    load_dotenv()
+    api_key = os.getenv('GOOGLE_API_KEY')
 
-# Initialize Google GenAI
-api_key = os.getenv('GOOGLE_API_KEY')
 if not api_key:
-    raise ValueError("Google API key not found in environment variables")
+    raise ValueError("Google API key not found in environment variables or Streamlit secrets")
 genai.configure(api_key=api_key)
 
 def generate_content_with_retry(uploaded_file, prompt, max_retries=3):

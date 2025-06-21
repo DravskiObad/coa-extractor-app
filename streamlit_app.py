@@ -183,7 +183,7 @@ st.markdown("""
     <h3>📋 Instructions</h3>
     <ul>
         <li><strong>⚠️ Please split CoAs into smaller files, up to 10 pages long at max.</strong></li>
-        <li>📄 Upload PDF files containing Certificates of Analysis (CoAs)</li>
+        <li>📄 Upload PDF files containing Certificates of Analysis (CoAs). <strong>⚠️Only NON-CONFIDENTIAL version(s).</strong</li>
         <li>📁 Supported formats: PDF files only</li>
         <li>📤 Multiple files can be uploaded simultaneously</li>
         <li>🤖 The AI will automatically extract analytical parameters, batch numbers, and methods</li>

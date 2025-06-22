@@ -173,6 +173,8 @@ if 'table_data' not in st.session_state:
     st.session_state.table_data = None
 if 'batch_numbers' not in st.session_state:
     st.session_state.batch_numbers = None
+if 'uploader_key' not in st.session_state:
+    st.session_state.uploader_key = 0
 
 # Main app
 st.markdown('<h1 class="main-header">CoA Extraction App</h1>', unsafe_allow_html=True)
@@ -183,7 +185,7 @@ st.markdown("""
     <h3>📋 Instructions</h3>
     <ul>
         <li><strong>⚠️ Please split CoAs into smaller files, up to 10 pages long at max.</strong></li>
-        <li>📄 Upload PDF files containing Certificates of Analysis (CoAs). <strong>⚠️Only NON-CONFIDENTIAL version(s).</strong</li>
+        <li>📄 Upload PDF files containing Certificates of Analysis (CoAs). <strong>⚠️Only NON-CONFIDENTIAL version(s).</strong></li>
         <li>📁 Supported formats: PDF files only</li>
         <li>📤 Multiple files can be uploaded simultaneously</li>
         <li>🤖 The AI will automatically extract analytical parameters, batch numbers, and methods</li>
@@ -199,7 +201,8 @@ uploaded_files = st.file_uploader(
     "Choose PDF files",
     type="pdf",
     accept_multiple_files=True,
-    help="Select one or more PDF files containing Certificate of Analysis documents"
+    help="Select one or more PDF files containing Certificate of Analysis documents",
+    key=f"file_uploader_{st.session_state.uploader_key}"
 )
 
 # Process files
@@ -304,9 +307,12 @@ if st.session_state.table_data:
 # Clear data button
 if st.session_state.table_data:
     if st.button("🗑️ Clear Data and Start New Upload"):
+        # Clear all session data
         st.session_state.extracted_data = None
         st.session_state.table_data = None
         st.session_state.batch_numbers = None
+        # Reset file uploader by changing its key
+        st.session_state.uploader_key += 1
         st.rerun()
 
 # Footer

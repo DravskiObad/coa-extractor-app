@@ -318,6 +318,6 @@ if st.session_state.table_data:
 # Footer
 st.markdown("""
 <div class="footer">
-    Powered by European Food Safety Authority 2025
+    Powered by Google gemini-2.5-flash 2025
 </div>
 """, unsafe_allow_html=True)
